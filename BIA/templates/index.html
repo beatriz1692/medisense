@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MediSense - Diagnóstico Inteligente</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="app">
+
+  <!-- Header -->
+  <div class="app__header app__card app__shadow">
+    <div class="app__header-left">
+      <!-- LOGO -->
+      <img class="app__logo" src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+      <div class="app__header-title">
+        <span class="app__brand">Medisense</span>
+        <span class="app__subtitle"> - Intelligent Diagnostic Assistant</span>
+      </div>
+    </div>
+
+    <div class="app__header-user">
+      {% if user and user.photo %}
+        <img class="app__header-avatar" src="{{ user.photo }}" alt="Foto de perfil">
+      {% else %}
+        <div class="app__avatar">
+          <div class="app__avatar-in"></div>
+          <div class="app__avatar-in app__avatar-in--small"></div>
+        </div>
+      {% endif %}
+      <div class="app__user-meta">
+        <div class="app__user-name">{{ user.name if user else 'Usuário' }}</div>
+        <a class="app__logout" href="{{ url_for('logout') }}">Sair</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="app__container">
+    <!-- Coluna esquerda -->
+    <section class="app__left">
+      <!-- Dados do Paciente -->
+      <div class="app__card app__shadow">
+        <h2>Dados do Paciente</h2>
+        <label>Nome do Paciente</label>
+        <input id="nome" type="text" placeholder="Ex: Paciente Exemplo" />
+
+        <div class="app__row">
+          <div class="app__group">
+            <label>Sexo</label>
+            <select id="sexo">
+              <option>Feminino</option>
+              <option>Masculino</option>
+            </select>
+          </div>
+          <div class="app__group">
+            <label>Idade</label>
+            <input id="idade" type="number" min="0" value="29" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Sinais Vitais -->
+      <div class="app__card app__shadow">
+        <h2>Sinais Vitais</h2>
+
+        <div class="app__row">
+          <div class="app__group">
+            <label>Temperatura (°C)</label>
+            <input id="temperatura" type="number" step="0.1" value="37.2" />
+          </div>
+          <div class="app__group">
+            <label>Frequência Cardíaca (bpm)</label>
+            <input id="frequencia_cardiaca" type="number" value="88" />
+          </div>
+          <div class="app__group">
+            <label>Pressão Sistólica (mmHg)</label>
+            <input id="pressao_sistolica" type="number" value="112" />
+          </div>
+          <div class="app__group">
+            <label>Pressão Diastólica (mmHg)</label>
+            <input id="pressao_diastolica" type="number" value="73" />
+          </div>
+        </div>
+
+        <div class="app__row">
+          <div class="app__group">
+            <label>Saturação (%)</label>
+            <input id="saturacao" type="number" value="95" />
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Sintomas -->
+      <div class="app__card app__shadow">
+        <h2>Sintomas</h2>
+        <div class="app__grid2">
+          <label><input type="checkbox" id="tosse" checked> Tosse</label>
+          <label><input type="checkbox" id="fadiga" checked> Fadiga</label>
+          <label><input type="checkbox" id="sede_excessiva"> Sede Excessiva</label>
+          <label><input type="checkbox" id="vomitos"> Vômitos</label>
+          <label><input type="checkbox" id="falta_ar"> Falta de Ar</label>
+        </div>
+
+        <label style="margin-top:10px;">Descrição (texto livre)</label>
+        <textarea id="sintomas_texto" rows="4"
+          placeholder="Ex.: paciente refere tosse seca há 3 dias, fadiga e falta de ar ao esforço..."></textarea>
+        <small class="app__muted">
+          Palavras-chave no texto ativam sintomas automaticamente (ex.: tosse, fadiga, sede, vômitos, falta de ar).
+        </small>
+      </div>
+    </section>
+
+    <!-- Coluna direita -->
+    <section class="app__right">
+      <div class="app__card app__shadow app__result">
+        <h2>Resultado</h2>
+
+        <div class="app__charts">
+          <canvas id="donutChart"></canvas>
+        </div>
+
+        <h3 class="app__muted">Probabilidade de Doença:</h3>
+        <div id="bars"></div>
+      </div>
+
+      <div class="app__actions">
+        <button id="btnDiag">Diagnosticar</button>
+        <p class="app__credits app__muted">Feito por Beatriz S. Toneloto</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Criar Conta — MediSense</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="auth-bg">
+  <main class="auth-center">
+    <section class="auth-card card">
+      <!-- usa auth-logo (não .logo) para não herdar o tamanho do header -->
+      <img class="auth-logo" src="{{ url_for('static', filename='logo.png') }}" alt="MediSense">
+      <h1 class="auth-title">Criar conta</h1>
+      <p class="auth-subtitle">Preencha seus dados para começar.</p>
+
+      {% if error %}
+        <div class="auth-error" role="alert">{{ error }}</div>
+      {% endif %}
+
+      <form method="post" action="{{ url_for('register_post') }}" class="auth-form" enctype="multipart/form-data">
+        <div class="auth-field">
+          <label for="username">Usuário</label>
+          <input id="username" name="username" type="text" placeholder="seu_usuario" required>
+        </div>
+
+        <div class="auth-field">
+          <label for="display_name">Nome para exibição</label>
+          <input id="display_name" name="display_name" type="text" placeholder="Ex.: Raphael Sidoti" required>
+        </div>
+
+        <div class="auth-row">
+          <div class="auth-field">
+            <label for="password">Senha</label>
+            <input id="password" name="password" type="password" placeholder="••••••••" required>
+          </div>
+          <div class="auth-field">
+            <label for="confirm">Confirmar senha</label>
+            <input id="confirm" name="confirm" type="password" placeholder="••••••••" required>
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label>Foto de perfil (opcional)</label>
+          <div class="avatar-upload">
+            <img id="preview" alt="Pré-visualização" />
+            <input type="file" name="photo" accept="image/*" id="photoInput">
+          </div>
+        </div>
+
+        <button class="auth-btn" type="submit">Criar conta</button>
+      </form>
+
+      <div class="auth-divider"><span>ou</span></div>
+
+      <div class="auth-alt">
+        <span class="muted">Já tem conta?</span>
+        <a class="auth-link" href="{{ url_for('login') }}">Entrar</a>
+      </div>
+    </section>
+
+    <footer class="auth-footer muted">
+      <span>© {{ 2025 }} MediSense</span>
+    </footer>
+  </main>
+
+  <script>
+    // preview da foto
+    const input = document.getElementById('photoInput');
+    const preview = document.getElementById('preview');
+    input.addEventListener('change', () => {
+      const file = input.files && input.files[0];
+      if(!file){ preview.src = ''; preview.style.display = 'none'; return; }
+      const url = URL.createObjectURL(file);
+      preview.src = url;
+      preview.style.display = 'block';
+    });
+  </script>
+</body>
+</html>

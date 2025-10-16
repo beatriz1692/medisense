@@ -1,0 +1,172 @@
+/* ===============================
+   VARS GERAIS
+   =============================== */
+:root{
+  --bg-app:#8EA1D5;
+  --card:#fff;
+  --shadow:#D9E0F4;
+  --text:#2E2E2E;
+  --muted:#6B7280;
+  --accent:#4CAF50;
+  --danger:#B00020;
+
+  /* Logo grande só na APP */
+  --logo-size:108px;
+}
+
+*{ box-sizing:border-box; }
+
+/* ===============================
+   APP (escopada em .app)
+   =============================== */
+.app{
+  margin:0;
+  font-family:"Segoe UI", Arial, sans-serif;
+  background:var(--bg-app);
+  color:var(--text);
+}
+
+.app h2{ font-size:14px; margin:4px 0 12px; font-weight:700; }
+.app h3{ margin:10px 0 6px; }
+.app .app__muted{ color:var(--muted); }
+
+/* Cards & sombras dentro da APP */
+.app .app__card{
+  background:var(--card);
+  border-radius:20px;
+  padding:16px 18px;
+}
+.app .app__shadow{ box-shadow:0 6px 0 var(--shadow); }
+
+/* Header */
+.app .app__header{
+  width:min(1100px, 92%);
+  margin:24px auto 10px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.app .app__header-left{ display:flex; align-items:center; gap:16px; }
+.app .app__logo{
+  height:var(--logo-size); width:auto; display:block; object-fit:contain; border-radius:6px;
+}
+.app .app__brand{ color:#2B5CA8; font-weight:700; font-size:20px; }
+.app .app__subtitle{ font-size:16px; color:var(--text); }
+
+.app .app__header-user{ display:flex; align-items:center; gap:10px; }
+.app .app__header-avatar{
+  width:42px; height:42px; border-radius:50%; object-fit:cover; border:2px solid #fff;
+}
+.app .app__user-meta{ display:flex; flex-direction:column; align-items:flex-end; line-height:1.2; }
+.app .app__user-name{ font-size:14px; font-weight:600; }
+.app .app__logout{ font-size:12px; color:#1f4db8; text-decoration:none; }
+.app .app__logout:hover{ text-decoration:underline; }
+
+/* avatar decorativo (fallback) */
+.app .app__avatar{ position:relative; width:44px; height:44px; border-radius:50%; background:#E6F0FF; }
+.app .app__avatar-in{ position:absolute; left:10px; top:8px; width:20px; height:20px; border-radius:50%; background:#9CC2FF; }
+.app .app__avatar-in--small{ left:7px; top:24px; width:26px; height:12px; border-radius:999px; background:#9CC2FF; }
+
+/* Layout */
+.app .app__container{
+  width:min(1100px, 92%);
+  margin:12px auto 40px;
+  display:grid; grid-template-columns:460px 1fr; gap:24px;
+}
+.app .app__left, .app .app__right{ display:flex; flex-direction:column; gap:18px; }
+
+/* Inputs */
+.app label{ font-size:12px; color:var(--muted); display:block; margin:6px 0 6px; }
+.app input[type="text"],
+.app input[type="number"],
+.app input[type="password"],
+.app select{
+  width:100%; background:#F2F3F7; border:0; border-radius:10px; padding:10px;
+  font-size:14px; color:var(--text); outline:none;
+}
+.app textarea{
+  width:100%; background:#F2F3F7; border:0; border-radius:12px; padding:10px;
+  font-size:14px; color:var(--text); outline:none; resize:vertical;
+}
+.app .app__row{ display:flex; gap:12px; }
+.app .app__group{ flex:1; }
+
+/* Sintomas */
+.app .app__grid2{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:8px 12px; }
+.app .app__grid2 label{ color:var(--text); font-size:14px; display:flex; gap:8px; align-items:center; }
+
+/* Resultado */
+.app .app__result{ min-height:520px; }
+.app .app__charts{ display:flex; justify-content:center; align-items:center; padding:8px 0 0; }
+.app #bars{ margin-top:8px; }
+
+/* Barras */
+.app .bar-row{ display:flex; align-items:center; gap:10px; margin:6px 0; }
+.app .bar-row .label{ width:180px; font-size:14px; }
+.app .bar{ flex:0 0 160px; height:10px; background:#EFEFEF; border-radius:6px; overflow:hidden; }
+.app .bar > span{ display:block; height:100%; background:#bbb; width:0%; border-radius:6px; transition:width .4s ease; }
+.app .bar-row .pct{ font-size:13px; color:var(--muted); }
+
+/* Ações */
+.app .app__actions{ display:flex; align-items:center; justify-content:space-between; margin-top:10px; }
+.app #btnDiag{
+  background:var(--accent); color:#fff; border:0; border-radius:10px;
+  padding:12px 18px; font-weight:700; cursor:pointer;
+}
+.app #btnDiag:hover{ filter:brightness(0.95); }
+
+/* Responsivo */
+@media (max-width:980px){
+  .app .app__container{ grid-template-columns:1fr; }
+  .app .app__brand{ font-size:18px; }
+  .app .app__header-left{ gap:12px; }
+  .app{ --logo-size:84px; } /* reduz um pouco a logo no mobile */
+}
+
+/* ===============================
+   AUTH (login/register) — já estava ok,
+   mantido escopado para não quebrar a APP
+   =============================== */
+:root{
+  --auth-bg:#f7f8fc; --auth-card:#fff; --auth-text:#202124;
+  --auth-muted:#5f6368; --auth-border:#dadce0; --auth-primary:#1a73e8;
+}
+
+.auth-bg{
+  background:var(--auth-bg); color:var(--auth-text);
+  min-height:100dvh; margin:0; font-family:"Segoe UI", Arial, sans-serif;
+}
+.auth-center{ min-height:100dvh; display:grid; place-items:center; padding:24px; }
+.auth-card{
+  width:380px; max-width:92vw; background:var(--auth-card);
+  border-radius:12px; padding:32px 28px 24px;
+  box-shadow:0 1px 2px rgba(0,0,0,.06), 0 2px 6px rgba(0,0,0,.06);
+  text-align:center; border:1px solid #eee;
+}
+.auth-logo{ height:48px; width:auto; object-fit:contain; margin-bottom:10px; }
+.auth-title{ font-size:22px; font-weight:600; margin:6px 0 2px; color:var(--auth-text); }
+.auth-subtitle{ font-size:14px; color:var(--auth-muted); margin:0 0 18px; }
+.auth-error{
+  background:#fde7e9; color:#b00020; border:1px solid #f9c6cc;
+  border-radius:8px; padding:10px 12px; font-size:13px; text-align:left; margin-bottom:12px;
+}
+.auth-form{ display:flex; flex-direction:column; gap:14px; text-align:left; }
+.auth-field label{ font-size:12px; color:var(--auth-muted); display:inline-block; margin-bottom:6px; }
+.auth-field input{
+  width:100%; border:1px solid var(--auth-border); border-radius:8px; padding:12px 12px;
+  font-size:14px; outline:none; background:#fff; transition:border-color .2s, box-shadow .2s;
+}
+.auth-field input:focus{ border-color:var(--auth-primary); box-shadow:0 0 0 3px rgba(26,115,232,.12); }
+.auth-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:480px){ .auth-row{ grid-template-columns:1fr; } }
+.auth-btn{
+  margin-top:6px; width:100%; border:0; background:var(--auth-primary); color:#fff;
+  border-radius:24px; padding:12px 18px; font-weight:600; font-size:14px; cursor:pointer;
+}
+.auth-btn:hover{ filter:brightness(.98); }
+.auth-divider{ display:flex; align-items:center; gap:10px; color:var(--auth-muted); font-size:12px; margin:14px 0 0; }
+.auth-divider::before,.auth-divider::after{ content:""; height:1px; background:var(--auth-border); flex:1 1 auto; }
+.auth-alt{ margin-top:10px; display:flex; justify-content:center; gap:6px; align-items:center; font-size:14px; }
+.auth-link{ color:#1a73e8; text-decoration:none; }
+.auth-link:hover{ text-decoration:underline; }
+.auth-footer{ margin-top:16px; font-size:12px; text-align:center; color:var(--auth-muted); }
+.avatar-upload{ display:flex; align-items:center; gap:12px; background:#F2F3F7; border-radius:12px; padding:10px; }
+.avatar-upload #preview{ width:56px; height:56px; border-radius:50%; object-fit:cover; display:none; border:2px solid #fff; }
